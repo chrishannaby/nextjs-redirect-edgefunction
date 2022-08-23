@@ -5,6 +5,7 @@ const proxyUrl =
 
 export default async (request: Request, context: Context) => {
   const response = await fetch(proxyUrl);
+  console.log(response);
   const locationHeader = response.headers.get("Location");
   if (locationHeader && pathRegex.test(locationHeader)) {
     response.headers.set("Location", locationHeader.replace(pathRegex, ""));
