@@ -9,6 +9,6 @@ export default async (request: Request, context: Context) => {
   if (locationHeader && pathRegex.test(locationHeader)) {
     response.headers.set("Location", locationHeader.replace(pathRegex, ""));
   }
-
+  console.log(response.headers);
   return response;
 };
