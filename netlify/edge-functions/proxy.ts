@@ -4,7 +4,7 @@ const proxyUrl =
   "https://redirect-via-edge-function.netlify.app/.netlify/functions/login";
 
 export default async (request: Request, context: Context) => {
-  const response = await fetch(proxyUrl);
+  const response = await fetch(proxyUrl, { redirect: "manual" });
   console.log(response);
   const locationHeader = response.headers.get("Location");
   if (locationHeader && pathRegex.test(locationHeader)) {
