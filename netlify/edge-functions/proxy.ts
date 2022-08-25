@@ -8,11 +8,11 @@ export default async (request: Request, context: Context) => {
   const requestQuery = new URL(request.url).search;
   const proxyUrl = proxyUrlBase + requestPath + requestQuery;
   const newRequest = new Request(proxyUrl, {
-    method: request.method,
-    body: request.body,
+    ...request,
+    redirect: "manual",
   });
   console.log(newRequest);
-  const response = await fetch(request, { redirect: "manual" });
+  const response = await fetch(request);
   console.log(response);
   const locationHeader = response.headers.get("Location");
   if (locationHeader && pathRegex.test(locationHeader)) {
