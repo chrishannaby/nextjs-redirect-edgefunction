@@ -1,9 +1,13 @@
 import { Context } from "netlify:edge";
 const pathRegex = /^https:\/\/www2-stage.aapc.com/;
-const proxyUrl =
+const proxyUrlBase =
   "https://redirect-via-edge-function.netlify.app/.netlify/functions/login";
 
 export default async (request: Request, context: Context) => {
+  const requestPath = new URL(request.url).pathname;
+  const requestQuery = new URL(request.url).search;
+  const proxyUrl = proxyUrlBase + requestPath + requestQuery;
+  console.log(proxyUrl);
   const response = await fetch(proxyUrl, { redirect: "manual" });
   const locationHeader = response.headers.get("Location");
   if (locationHeader && pathRegex.test(locationHeader)) {
