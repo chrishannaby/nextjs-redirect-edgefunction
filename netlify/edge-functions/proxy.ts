@@ -10,6 +10,7 @@ export default async (request: Request, context: Context) => {
   const newRequest = new Request(proxyUrl, request);
   console.log(newRequest);
   const response = await fetch(request, { redirect: "manual" });
+  console.log(response);
   const locationHeader = response.headers.get("Location");
   if (locationHeader && pathRegex.test(locationHeader)) {
     const newHeaders = new Headers(response.headers);
