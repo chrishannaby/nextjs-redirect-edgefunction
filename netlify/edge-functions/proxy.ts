@@ -7,7 +7,10 @@ export default async (request: Request, context: Context) => {
   const requestPath = new URL(request.url).pathname;
   const requestQuery = new URL(request.url).search;
   const proxyUrl = proxyUrlBase + requestPath + requestQuery;
-  const newRequest = new Request(proxyUrl, request);
+  const newRequest = new Request(proxyUrl, {
+    method: request.method,
+    body: request.body,
+  });
   console.log(newRequest);
   const response = await fetch(request, { redirect: "manual" });
   console.log(response);
