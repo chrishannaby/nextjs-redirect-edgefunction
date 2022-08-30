@@ -11,6 +11,7 @@ export default async (request: Request, context: Context) => {
   if (locationHeader && pathRegex.test(locationHeader)) {
     const newHeaders = new Headers(response.headers);
     newHeaders.set("Location", locationHeader.replace(pathRegex, ""));
+    console.log(newHeaders);
     return new Response(response.body, {
       status: response.status,
       statusText: response.statusText,
